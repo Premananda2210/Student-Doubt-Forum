@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ask a Doubt — Student Doubt Forum</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark">SD</span> Doubt Forum</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="student-dashboard.html">Student Dashboard</a></li>
+      <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
+      <li><a href="teacher-profiles.html">Teachers</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="ask-doubt.html" class="btn btn-primary btn-sm">Ask a Doubt</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</nav>
+
+<header style="padding: 56px 0 24px; border-bottom: 1px solid var(--line);">
+  <div class="container">
+    <span class="eyebrow">New Card</span>
+    <h1 style="font-size: 34px; margin-top: 10px;">File a new doubt</h1>
+    <p class="text-soft mt-8" style="max-width: 480px;">Fill this out like an index card: one clear question, the right subject, the right teacher.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container" style="display:grid; grid-template-columns: 1fr 320px; gap: 48px; align-items:start;">
+
+    <form id="ask-doubt-form" class="card" style="padding: 32px;">
+      <div class="card-body" style="padding-left:0;">
+        <div class="field">
+          <label for="doubt-title">Doubt title</label>
+          <input type="text" id="doubt-title" placeholder="e.g. Why does merge sort need extra space?" required />
+        </div>
+
+        <div class="flex gap-12" style="align-items:flex-start;">
+          <div class="field" style="flex:1;">
+            <label for="subject">Subject</label>
+            <select id="subject" required>
+              <option value="">Select a subject</option>
+              <option>Data Structures</option>
+              <option>Database Management System</option>
+              <option>Java Programming</option>
+              <option>Python Programming</option>
+              <option>Operating System</option>
+              <option>Web Development</option>
+              <option>Computer Networks</option>
+              <option>Cyber Security</option>
+              <option>Artificial Intelligence</option>
+            </select>
+          </div>
+          <div class="field" style="flex:1;">
+            <label for="teacher">Teacher</label>
+            <select id="teacher" required>
+              <option value="">Select a teacher</option>
+              <option>Manisha Matekar</option>
+              <option>Mansi Jain</option>
+              <option>Nishigandha</option>
+              <option>Sunandita</option>
+              <option>Shradhha</option>
+              <option>Sherly Roy</option>
+              <option>Ashwini</option>
+              <option>Sonal Mehrotra</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Explain what you've tried and exactly where you're stuck…" required></textarea>
+          <span class="hint">The more specific, the faster the answer.</span>
+        </div>
+
+        <div class="field">
+          <label>Attach an image (optional)</label>
+          <div class="upload-box" id="upload-box">
+            <input type="file" id="doubt-image-input" accept="image/*" hidden />
+            <span>Click to upload a photo of your work or a screenshot</span>
+          </div>
+          <div id="upload-preview"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-8">Post Doubt</button>
+      </div>
+    </form>
+
+    <!-- Live preview card -->
+    <aside>
+      <h4 class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:14px;">Preview</h4>
+      <div class="card">
+        <span class="stamp stamp-pending">Pending</span>
+        <div class="card-body">
+          <span class="card-tag">Your Subject</span>
+          <div class="card-title">Your doubt title will appear here</div>
+          <div class="card-meta">You · just now</div>
+        </div>
+      </div>
+      <p class="text-faint mono mt-16" style="font-size:11.5px;">This is how your doubt will look once posted to the catalogue.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- Confirmation modal -->
+<div class="modal-overlay" id="doubt-posted-modal" style="display:none; position:fixed; inset:0; background:rgba(20,20,20,0.4); align-items:center; justify-content:center; z-index:50;">
+  <div class="card" style="max-width:380px; width:90%; padding:32px; text-align:center;">
+    <div class="card-body" style="padding-left:0;">
+      <span class="mono" style="font-size:11px; color:var(--ink-faint);">CARD FILED</span>
+      <h3 style="font-size:22px; margin-top:10px;">Doubt posted.</h3>
+      <p class="text-soft mt-8" style="font-size:14px;">Your doubt has been added to the catalogue. This is a UI demonstration — no data was actually sent anywhere.</p>
+      <button class="btn btn-primary btn-block mt-24" data-modal-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top:0;">
+      <span>© 2026 Student Doubt Forum — Frontend Prototype</span>
+      <span>v1.0</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<style>
+  .modal-overlay.is-open { display: flex !important; }
+</style>
+</body>
+</html>

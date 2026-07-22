@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Doubt Details — Student Doubt Forum</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark">SD</span> Doubt Forum</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="student-dashboard.html">Student Dashboard</a></li>
+      <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
+      <li><a href="teacher-profiles.html">Teachers</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="ask-doubt.html" class="btn btn-primary btn-sm">Ask a Doubt</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</nav>
+
+<header style="padding: 40px 0 0;">
+  <div class="container">
+    <a href="student-dashboard.html" class="mono text-faint" style="font-size:13px;">← Back to dashboard</a>
+  </div>
+</header>
+
+<section style="padding-top: 24px;">
+  <div class="container" style="max-width: 760px;">
+
+    <div class="card" style="padding: 32px;">
+      <span class="stamp stamp-answered">Answered</span>
+      <div class="card-body" style="padding-left:0;">
+        <span class="card-tag">Operating System</span>
+        <h1 style="font-size: 28px; margin-top: 12px; line-height:1.25;">Difference between paging and segmentation?</h1>
+
+        <div class="flex gap-12 mt-24" style="align-items:center; flex-wrap:wrap;">
+          <div class="flex gap-8" style="align-items:center;">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--bg-alt);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;">KS</div>
+            <span class="text-soft" style="font-size:14px;">Kabir S.</span>
+          </div>
+          <span class="text-faint mono" style="font-size:12px;">→ addressed to</span>
+          <span class="text-soft" style="font-size:14px; font-weight:600;">Sherly Roy</span>
+          <span class="text-faint mono" style="font-size:12px; margin-left:auto;">Filed 3 days ago</span>
+        </div>
+
+        <hr class="divider mt-24" />
+
+        <p class="mt-24" style="font-size:15.5px; line-height:1.7;">
+          I keep mixing up paging and segmentation in OS. Both seem to split memory into chunks, so I don't
+          understand why an operating system would need both, or when one is actually better than the other.
+          I've attached a diagram from my notes below — I think I've drawn it wrong somewhere.
+        </p>
+
+        <div class="mt-24" style="border:1px solid var(--line); border-radius: 3px; padding: 20px; background: var(--bg-alt); text-align:center;">
+          <div style="font-family: var(--font-mono); font-size:12px; color: var(--ink-faint);">[ Uploaded image preview: memory-diagram.png ]</div>
+          <div style="height:160px; display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:13px; margin-top:10px; border:1px dashed var(--line-strong); border-radius:3px;">Student's uploaded diagram appears here</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Answer -->
+    <div class="section-head" style="max-width:none; margin: 48px 0 20px;">
+      <span class="eyebrow">Sample Teacher Answer</span>
+      <h2 style="font-size:22px; margin-top:8px;">From Sherly Roy</h2>
+    </div>
+
+    <div class="card" style="padding: 28px; border-left: 3px solid var(--ink);">
+      <div class="card-body" style="padding-left:0;">
+        <p style="font-size:15px; line-height:1.7;">
+          Good question — the short version is that they solve different problems. Paging splits memory into
+          fixed-size frames purely for the OS's bookkeeping, so the programmer never sees it. Segmentation
+          splits a program into logical units — code, stack, data — that actually mean something to the
+          programmer, but those units can vary in size, which makes fitting them into physical memory harder.
+        </p>
+        <p style="font-size:15px; line-height:1.7; margin-top: 14px;">
+          Most modern systems actually combine both: segments that are themselves paged. Try redrawing your
+          diagram with two layers — logical segments on top, fixed pages underneath — and it should click.
+        </p>
+        <div class="card-meta" style="margin-top:20px;">Answered 2 days ago · Operating System</div>
+      </div>
+    </div>
+
+    <div class="flex gap-12 mt-32" style="margin-bottom: 64px;">
+      <a href="student-dashboard.html" class="btn btn-secondary">← All Doubts</a>
+      <a href="ask-doubt.html" class="btn btn-primary">Ask a Related Doubt</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top:0;">
+      <span>© 2026 Student Doubt Forum — Frontend Prototype</span>
+      <span>v1.0</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
