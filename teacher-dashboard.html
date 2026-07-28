@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teacher Dashboard — Student Doubt Forum</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark">SD</span> Doubt Forum</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="student-dashboard.html">Student Dashboard</a></li>
+      <li><a href="teacher-dashboard.html" class="active">Teacher Dashboard</a></li>
+      <li><a href="teacher-profiles.html">Teachers</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="ask-doubt.html" class="btn btn-primary btn-sm">Ask a Doubt</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</nav>
+
+<header style="padding: 56px 0 32px; border-bottom: 1px solid var(--line);">
+  <div class="container flex" style="justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+    <div>
+      <span class="eyebrow">Teacher Dashboard</span>
+      <h1 style="font-size: 34px; margin-top: 10px;">Good afternoon, Mansi.</h1>
+      <p class="text-soft mt-8">6 doubts waiting on your desk, 24 resolved this term.</p>
+    </div>
+    <div class="flex gap-12" style="align-items:center;">
+      <div class="card" style="padding: 10px 16px;">
+        <div class="card-body" style="padding-left:0;">
+          <div class="flex gap-12" style="align-items:center;">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--bg-alt);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;">MJ</div>
+            <div>
+              <p style="font-size:13.5px; font-weight:600;">Mansi Jain</p>
+              <p class="text-faint mono" style="font-size:11px;">DBMS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: 40px;">
+  <div class="container">
+
+    <div class="section-head" style="max-width:none; margin-bottom: 20px;">
+      <span class="eyebrow">Pending Doubts</span>
+      <h2 style="font-size:24px; margin-top:8px;">Waiting for your answer</h2>
+    </div>
+
+    <div class="card-grid" style="grid-template-columns: 1fr; margin-bottom: 64px;">
+      <div class="card" style="display:flex; align-items:center; justify-content:space-between; padding-left:22px; flex-wrap:wrap; gap:16px;">
+        <div class="card-body" style="padding-left:0; flex:1; min-width:260px;">
+          <span class="card-tag">Database Management System</span>
+          <div class="card-title" style="font-size:16px;">Why do we need normalization if storage is cheap now?</div>
+          <div class="card-meta" style="border-top:none; padding-top:0; margin-top:8px;">Kabir S. · filed 12 min ago</div>
+        </div>
+        <a href="doubt-details.html" class="btn btn-primary btn-sm">Answer</a>
+      </div>
+      <div class="card" style="display:flex; align-items:center; justify-content:space-between; padding-left:22px; flex-wrap:wrap; gap:16px;">
+        <div class="card-body" style="padding-left:0; flex:1; min-width:260px;">
+          <span class="card-tag">Database Management System</span>
+          <div class="card-title" style="font-size:16px;">What's the practical difference between a clustered and non-clustered index?</div>
+          <div class="card-meta" style="border-top:none; padding-top:0; margin-top:8px;">Anaya P. · filed 47 min ago</div>
+        </div>
+        <a href="doubt-details.html" class="btn btn-primary btn-sm">Answer</a>
+      </div>
+      <div class="card" style="display:flex; align-items:center; justify-content:space-between; padding-left:22px; flex-wrap:wrap; gap:16px;">
+        <div class="card-body" style="padding-left:0; flex:1; min-width:260px;">
+          <span class="card-tag">Database Management System</span>
+          <div class="card-title" style="font-size:16px;">When would you denormalize a schema on purpose?</div>
+          <div class="card-meta" style="border-top:none; padding-top:0; margin-top:8px;">Riya M. · filed 2 hr ago</div>
+        </div>
+        <a href="doubt-details.html" class="btn btn-primary btn-sm">Answer</a>
+      </div>
+    </div>
+
+    <div class="section-head" style="max-width:none; margin-bottom: 20px;">
+      <span class="eyebrow">Answered Doubts</span>
+      <h2 style="font-size:24px; margin-top:8px;">Closed out this week</h2>
+    </div>
+
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <a href="doubt-details.html" class="card">
+        <span class="stamp stamp-answered">Answered</span>
+        <div class="card-body">
+          <span class="card-tag">DBMS</span>
+          <div class="card-title">What is a transaction's ACID property, really?</div>
+          <div class="card-meta">Priya K. · 2 days ago</div>
+        </div>
+      </a>
+      <a href="doubt-details.html" class="card">
+        <span class="stamp stamp-answered">Answered</span>
+        <div class="card-body">
+          <span class="card-tag">DBMS</span>
+          <div class="card-title">Why does a JOIN sometimes outperform a subquery?</div>
+          <div class="card-meta">Neel V. · 3 days ago</div>
+        </div>
+      </a>
+      <a href="doubt-details.html" class="card">
+        <span class="stamp stamp-answered">Answered</span>
+        <div class="card-body">
+          <span class="card-tag">DBMS</span>
+          <div class="card-title">What's the point of a foreign key at the application level?</div>
+          <div class="card-meta">Devansh R. · 4 days ago</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top:0;">
+      <span>© 2026 Student Doubt Forum — Frontend Prototype</span>
+      <span>v1.0</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

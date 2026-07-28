@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Dashboard — Student Doubt Forum</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark">SD</span> Doubt Forum</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="student-dashboard.html" class="active">Student Dashboard</a></li>
+      <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
+      <li><a href="teacher-profiles.html">Teachers</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="ask-doubt.html" class="btn btn-primary btn-sm">Ask a Doubt</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</nav>
+
+<header style="padding: 56px 0 32px; border-bottom: 1px solid var(--line);">
+  <div class="container flex" style="justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+    <div>
+      <span class="eyebrow">Student Dashboard</span>
+      <h1 style="font-size: 34px; margin-top: 10px;">Welcome back, Riya.</h1>
+      <p class="text-soft mt-8">You have 2 pending doubts and 5 answered this term.</p>
+    </div>
+    <a href="ask-doubt.html" class="btn btn-primary">+ Ask a Doubt</a>
+  </div>
+</header>
+
+<section style="padding-top: 40px;">
+  <div class="container sidebar-layout">
+
+    <!-- Sidebar: categories -->
+    <aside>
+      <div class="field">
+        <label for="doubt-search">Search doubts</label>
+        <input type="search" id="doubt-search" placeholder="Search by title, subject, teacher…" />
+      </div>
+
+      <h4 class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin: 28px 0 12px;">Categories</h4>
+      <div class="flex" style="flex-direction:column; gap:6px;">
+        <button class="btn btn-secondary is-active" data-category-chip="all" style="justify-content:flex-start; border-color:var(--line); background: var(--bg-alt);">All Subjects</button>
+        <button class="btn btn-secondary" data-category-chip="Data Structures" style="justify-content:flex-start; border-color:var(--line);">Data Structures</button>
+        <button class="btn btn-secondary" data-category-chip="DBMS" style="justify-content:flex-start; border-color:var(--line);">Database Management System</button>
+        <button class="btn btn-secondary" data-category-chip="Java" style="justify-content:flex-start; border-color:var(--line);">Java Programming</button>
+        <button class="btn btn-secondary" data-category-chip="Python" style="justify-content:flex-start; border-color:var(--line);">Python Programming</button>
+        <button class="btn btn-secondary" data-category-chip="OS" style="justify-content:flex-start; border-color:var(--line);">Operating System</button>
+        <button class="btn btn-secondary" data-category-chip="Web Dev" style="justify-content:flex-start; border-color:var(--line);">Web Development</button>
+        <button class="btn btn-secondary" data-category-chip="Networks" style="justify-content:flex-start; border-color:var(--line);">Computer Networks</button>
+        <button class="btn btn-secondary" data-category-chip="Cyber Security" style="justify-content:flex-start; border-color:var(--line);">Cyber Security</button>
+        <button class="btn btn-secondary" data-category-chip="AI" style="justify-content:flex-start; border-color:var(--line);">Artificial Intelligence</button>
+      </div>
+    </aside>
+
+    <!-- Main: doubts -->
+    <div>
+      <div class="section-head" style="max-width:none; margin-bottom: 20px;">
+        <span class="eyebrow">Popular Doubts</span>
+        <h2 style="font-size:24px; margin-top:8px;">Most viewed this week</h2>
+      </div>
+
+      <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 64px;">
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="Data Structures">
+          <span class="stamp stamp-pending">Pending</span>
+          <div class="card-body">
+            <span class="card-tag">Data Structures</span>
+            <div class="card-title">Why does a balanced BST guarantee O(log n) operations?</div>
+            <div class="card-meta">Riya M. · Mansi Jain · 142 views</div>
+          </div>
+        </a>
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="OS">
+          <span class="stamp stamp-answered">Answered</span>
+          <div class="card-body">
+            <span class="card-tag">Operating System</span>
+            <div class="card-title">Difference between paging and segmentation?</div>
+            <div class="card-meta">Kabir S. · Sherly Roy · 98 views</div>
+          </div>
+        </a>
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="Web Dev">
+          <span class="stamp stamp-pending">Pending</span>
+          <div class="card-body">
+            <span class="card-tag">Web Development</span>
+            <div class="card-title">When should I use flexbox vs. CSS grid?</div>
+            <div class="card-meta">Anaya P. · Sonal Mehrotra · 76 views</div>
+          </div>
+        </a>
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="AI">
+          <span class="stamp stamp-answered">Answered</span>
+          <div class="card-body">
+            <span class="card-tag">Artificial Intelligence</span>
+            <div class="card-title">How does backpropagation actually update weights?</div>
+            <div class="card-meta">Devansh R. · Ashwini · 64 views</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="section-head" style="max-width:none; margin-bottom: 20px;">
+        <span class="eyebrow">Recent Doubts</span>
+        <h2 style="font-size:24px; margin-top:8px;">Freshly filed</h2>
+      </div>
+
+      <div class="card-grid" style="grid-template-columns: 1fr;">
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="Networks" style="display:flex; align-items:center; justify-content:space-between; padding-left:22px;">
+          <div class="card-body" style="padding-left:0; flex:1;">
+            <span class="card-tag">Computer Networks</span>
+            <div class="card-title" style="font-size:16px;">What's the real difference between TCP and UDP handshakes?</div>
+            <div class="card-meta" style="border-top:none; padding-top:0; margin-top:8px;">Neel V. · Nishigandha · 8 min ago</div>
+          </div>
+          <span class="stamp stamp-pending" style="position:static; transform: rotate(-2deg); margin-left: 16px;">Pending</span>
+        </a>
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="Cyber Security" style="display:flex; align-items:center; justify-content:space-between; padding-left:22px;">
+          <div class="card-body" style="padding-left:0; flex:1;">
+            <span class="card-tag">Cyber Security</span>
+            <div class="card-title" style="font-size:16px;">How does a SQL injection attack actually work?</div>
+            <div class="card-meta" style="border-top:none; padding-top:0; margin-top:8px;">Priya K. · Shradhha · 34 min ago</div>
+          </div>
+          <span class="stamp stamp-pending" style="position:static; transform: rotate(-2deg); margin-left: 16px;">Pending</span>
+        </a>
+        <a href="doubt-details.html" class="card" data-doubt-card data-subject="Python" style="display:flex; align-items:center; justify-content:space-between; padding-left:22px;">
+          <div class="card-body" style="padding-left:0; flex:1;">
+            <span class="card-tag">Python Programming</span>
+            <div class="card-title" style="font-size:16px;">Why use list comprehensions instead of loops?</div>
+            <div class="card-meta" style="border-top:none; padding-top:0; margin-top:8px;">Arjun T. · Ashwini · 1 hr ago</div>
+          </div>
+          <span class="stamp stamp-answered" style="position:static; transform: rotate(-2deg); margin-left: 16px;">Answered</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top:0;">
+      <span>© 2026 Student Doubt Forum — Frontend Prototype</span>
+      <span>v1.0</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
