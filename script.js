@@ -236,9 +236,19 @@ function initSignupForm() {
         item.classList.toggle('is-selected', selected);
         item.setAttribute('aria-checked', String(selected));
       });
+      paintTeachFields();
       error.textContent = '';
     });
   });
+  const paintTeachFields = () => {
+    const show = roleInput.value === 'teacher';
+    ['#signup-subjects', '#signup-bio'].forEach((sel) => {
+      const input = document.querySelector(sel);
+      const field = input && input.closest('.field');
+      if (field) field.style.display = show ? '' : 'none';
+    });
+  };
+  paintTeachFields();
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = form.elements.name.value.trim();
