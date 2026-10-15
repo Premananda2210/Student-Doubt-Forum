@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login | Student Doubt Forum</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="login-page">
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark">SD</span> Doubt Forum</a>
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-secondary btn-sm">Back to home</a>
+    </div>
+  </div>
+</nav>
+
+<main class="login-main">
+  <section class="login-panel" aria-labelledby="login-title">
+    <div class="login-intro">
+      <span class="eyebrow">Account access</span>
+      <h1 id="login-title">Welcome back.</h1>
+      <p class="text-soft">Choose your account type, then sign in to open the workspace made for you.</p>
+    </div>
+
+    <div class="role-selector" role="radiogroup" aria-label="Choose account type">
+      <button type="button" class="role-option is-selected" data-login-role="student" role="radio" aria-checked="true">
+        <span class="role-icon" aria-hidden="true">S</span>
+        <span><strong>Student</strong><small>Ask and track your doubts</small></span>
+      </button>
+      <button type="button" class="role-option" data-login-role="teacher" role="radio" aria-checked="false">
+        <span class="role-icon" aria-hidden="true">T</span>
+        <span><strong>Teacher</strong><small>Review and answer doubts</small></span>
+      </button>
+    </div>
+
+    <form id="login-form" novalidate>
+      <input type="hidden" id="login-role" name="role" value="student" />
+      <div class="field">
+        <label for="login-email">College email</label>
+        <input type="email" id="login-email" name="email" autocomplete="email" placeholder="you@college.edu" required />
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <div style="position:relative;">
+          <input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Enter your password" required style="padding-right:44px;" />
+          <button type="button" data-password-toggle aria-label="Show password" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); border:0; background:transparent; cursor:pointer; color:var(--ink-faint); padding:6px; display:flex;"></button>
+        </div>
+      </div>
+      <p id="login-error" class="form-error" role="alert" aria-live="polite"></p>
+      <button type="submit" class="btn btn-primary btn-block">Log in as Student <span aria-hidden="true">→</span></button>
+      <div class="check-row">
+        <label><input type="checkbox" id="login-remember" /> Remember me</label>
+        <button type="button" class="link-btn" id="forgot-btn">Forgot password?</button>
+      </div>
+    </form>
+    <p class="login-note mono">First login creates your account on this browser — the same password is checked next time.<br>New here? <a href="signup.html" style="text-decoration:underline; text-underline-offset:3px; font-weight:600;">Create an account</a></p>
+
+<!-- Forgot password modal -->
+<div class="modal-overlay" id="forgot-modal" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+  <div class="card" style="max-width:400px; width:90%; padding:32px;">
+    <div class="card-body" style="padding-left:0;">
+      <span class="mono" style="font-size:11px; color:var(--ink-faint);">ACCOUNT RECOVERY</span>
+      <h3 id="forgot-title" style="font-size:22px; margin-top:10px;">Reset your password</h3>
+      <form id="forgot-form" class="mt-16">
+        <div class="field"><label for="forgot-email">College email</label><input type="email" id="forgot-email" placeholder="you@college.edu" required /></div>
+        <div class="field"><label for="forgot-new">New password</label><input type="password" id="forgot-new" placeholder="At least 6 characters" required /></div>
+        <div class="field"><label for="forgot-confirm">Confirm new password</label><input type="password" id="forgot-confirm" placeholder="Repeat it" required /></div>
+        <p id="forgot-error" class="form-error" role="alert" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-block">Update password</button>
+        <button type="button" class="btn btn-secondary btn-block mt-8" data-modal-close>Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  </section>
+</main>
+
+<script src="script.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Student Dashboard | Student Doubt Forum</title><link rel="stylesheet" href="styles.css"></head><body>
+<nav class="site-nav"><div class="container"><a href="index.html" class="brand"><span class="brand-mark">SD</span> Doubt Forum</a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="login.html">Login</a></li><li><a href="teacher-profiles.html">Teachers</a></li><li><a href="about.html">About</a></li></ul><div class="nav-actions"><a href="login.html" class="btn btn-primary btn-sm">Switch account</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button></div></div></nav>
+<main>
+<header style="padding:48px 0 28px; border-bottom:1px solid var(--line);"><div class="container"><div class="card" style="padding:24px;"><div class="card-body" style="padding-left:0;" id="student-profile"></div></div></div></header>
+<section><div class="container">
+<div class="toolbar" role="search">
+<input type="search" id="student-search" placeholder="Search your doubts…" aria-label="Search doubts" />
+<select id="filter-subject" aria-label="Filter by subject"></select>
+<select id="filter-teacher" aria-label="Filter by teacher"></select>
+<select id="filter-status" aria-label="Filter by status"><option value="">All statuses</option><option value="pending">Pending</option><option value="in-progress">In Progress</option><option value="answered">Answered</option></select>
+<select id="student-sort" aria-label="Sort doubts"><option value="newest">Newest</option><option value="oldest">Oldest</option></select>
+</div>
+<div class="card-grid" id="student-doubts"></div>
+<div class="empty-state" id="student-empty" style="display:none;"><span class="eyebrow">No doubts here</span><h2>Nothing matches these filters.</h2><p class="text-soft">Try clearing a filter — or ask your first question.</p><div class="flex gap-12 mt-24" style="justify-content:center;"><a href="ask-doubt.html" class="btn btn-primary">Ask a Doubt</a><a href="student-dashboard.html" class="btn btn-secondary">Clear filters</a></div></div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container"><div class="footer-bottom" style="border-top:none; padding-top:0;"><span>© 2026 Student Doubt Forum</span></div></div></footer><script src="script.js?v=3"></script></body></html>

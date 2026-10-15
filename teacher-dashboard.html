@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teachers Dashboard | Student Doubt Forum</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="teacher-dashboard.css" />
+</head>
+<body>
+<div class="dash">
+
+  <aside class="side" id="side" aria-label="Dashboard navigation">
+    <div class="side-brand"><span class="brand-mark">SD</span> Doubt Forum</div>
+    <nav class="side-nav">
+      <button class="side-link" data-nav="dashboard"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</button>
+      <button class="side-link is-active" data-nav="all"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>All Doubts<span class="count" id="nav-count-all">0</span></button>
+      <button class="side-link" data-nav="pending"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Pending Doubts<span class="count" id="nav-count-pending">0</span></button>
+      <button class="side-link" data-nav="answered"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Answered Doubts<span class="count" id="nav-count-answered">0</span></button>
+      <button class="side-link" data-nav="starred"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7L12 17.7 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>Important<span class="count" id="nav-count-starred">0</span></button>
+    </nav>
+    <div class="side-foot">
+      <a class="side-link" href="teacher-profiles.html"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</a>
+      <a class="side-link" href="index.html"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10"/></svg>Home</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="top">
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Open navigation">☰</button>
+      <div><h1>Teachers Dashboard</h1><p class="welcome text-soft">Welcome back, Professor!</p></div>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="search" id="dash-search" placeholder="Search by student, topic, or question…" aria-label="Search doubts" />
+      </div>
+      <div class="menu">
+        <button class="avatar" id="avatar-btn" aria-label="Account menu" aria-haspopup="true">PR</button>
+        <div class="menu-panel" id="avatar-panel" role="menu">
+          <div style="padding:10px;"><strong>Prof. Rao</strong><small>Teacher</small></div>
+          <a href="index.html">Back to home</a>
+          <a href="login.html">Switch account</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="stats" aria-label="Overview">
+        <div class="stat"><span class="stat-ic">▦</span><div><b id="stat-total">0</b><span>Total Doubts</span><small>all time</small></div></div>
+        <div class="stat"><span class="stat-ic">◷</span><div><b id="stat-pending">0</b><span>Pending Doubts</span><small>need a reply</small></div></div>
+        <div class="stat"><span class="stat-ic">✓</span><div><b id="stat-answered">0</b><span>Answered Doubts</span><small>resolved</small></div></div>
+        <div class="stat"><span class="stat-ic">☀</span><div><b id="stat-today">0</b><span>Answered Today</span><small>so far</small></div></div>
+      </section>
+
+      <section class="dash-body" id="doubts-section">
+        <div class="list-head">
+          <div><span class="eyebrow">Doubt management</span><h2>Student Doubts</h2></div>
+          <label class="sort-wrap">Sort by
+            <select id="sort-select" aria-label="Sort doubts">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </label>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Filter doubts">
+          <button class="tab is-active" data-tab="all">All</button>
+          <button class="tab" data-tab="pending">Pending</button>
+          <button class="tab" data-tab="answered">Answered</button>
+          <button class="tab" data-tab="starred">Important</button>
+        </div>
+        <div class="doubt-grid" id="doubt-list"></div>
+        <div class="list-empty" id="list-empty" style="display:none;">
+          <span class="eyebrow">No doubts</span>
+          <h3>Nothing assigned to you yet.</h3>
+          <p class="text-soft">Doubts students address to your account will appear here. Not your doubts? Sign in with your teacher email.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- Detail modal -->
+<div class="modal-overlay" id="doubt-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+  <div class="detail-card">
+    <div class="detail-head">
+      <div class="row">
+        <span id="detail-status"></span>
+        <span class="mono text-faint" id="detail-meta" style="font-size:12px;"></span>
+        <span style="margin-left:auto; display:flex; gap:8px;">
+          <button class="btn btn-secondary btn-sm" id="detail-star" aria-pressed="false">☆ Mark Important</button>
+          <button class="icon-btn" data-close-detail aria-label="Close doubt details">✕</button>
+        </span>
+      </div>
+      <h2 id="detail-title" tabindex="-1"></h2>
+    </div>
+    <div class="detail-body">
+      <div id="detail-question"></div>
+      <div><h4 class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:10px;">Conversation</h4><div class="thread" id="thread"></div></div>
+      <div>
+        <h4 class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:10px;">Your reply</h4>
+        <label for="reply-input" class="text-faint" style="font-size:12px;">Write a clear, step-by-step explanation.</label>
+        <textarea id="reply-input" placeholder="Explain step by step…"></textarea>
+        <div class="upload-box" id="dropzone" style="margin-top:10px; padding:20px;" role="button" tabindex="0" aria-label="Attach images">
+          <input type="file" id="answer-images" accept="image/*" multiple hidden />
+          <span>Attach images — click or drag &amp; drop (PNG, JPG, JPEG)</span>
+        </div>
+        <div class="attach-list" id="attach-list"></div>
+        <p id="reply-error" class="form-error" role="alert" style="margin-top:10px;"></p>
+        <div class="detail-actions">
+          <button class="btn btn-primary" id="btn-send">Send Answer</button>
+          <button class="btn btn-secondary" id="btn-resolve">Mark as Resolved</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image"><img src="" alt="Enlarged attachment" /></div>
+<div id="toasts" aria-live="polite"></div>
+
+<script src="script.js?v=3"></script>
+<script src="teacher-dashboard.js?v=3"></script>
+</body>
+</html>
