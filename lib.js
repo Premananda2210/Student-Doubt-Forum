@@ -112,8 +112,11 @@ async function route(req, res) {
     if (!r.rowCount) return json(res, 404, { error: 'no account' }), true;
     return json(res, 200, { ok: true }), true;
   }
-  if (req.method === 'GET' && u.pathname === '/api/me') {
-    const r = await pool.query('SELECT id, email, name, role FROM users WHERE email=$1', [q.email || '']);
+  if (req.method === 'GET' && u.pathname === '/api/teachers') {
+    const r = await pool.query("SELECT name, email FROM users WHERE role='teacher' ORDER BY name");
+    return json(res, 200, r.rows.map((x) => ({ name: x.name || x.email.split('@')[0], email: x.email }))), true;
+  }
+  if (req.method === 'GET' && u.pathname === '/api/me') {    const r = await pool.query('SELECT id, email, name, role FROM users WHERE email=$1', [q.email || '']);
     if (!r.rows.length) return json(res, 404, { error: 'no account' }), true;
     return json(res, 200, r.rows[0]), true;
   }

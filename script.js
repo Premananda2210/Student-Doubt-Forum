@@ -357,8 +357,15 @@ const TEACHERS = [
 ];
 function teacherName(id) {
   if (!id) return '';
-  const hit = TEACHERS.find((t) => t.email.toLowerCase() === String(id).toLowerCase() || t.name.toLowerCase() === String(id).toLowerCase());
+  const dir = TEACHER_LIST && TEACHER_LIST.length ? TEACHER_LIST : TEACHERS;
+  const hit = dir.find((t) => t.email.toLowerCase() === String(id).toLowerCase() || t.name.toLowerCase() === String(id).toLowerCase());
   return hit ? hit.name : id;
+}
+let TEACHER_LIST = null;
+async function loadTeachers() {
+  const r = await api('/api/teachers');
+  if (Array.isArray(r) && r.length) TEACHER_LIST = r;
+  return TEACHER_LIST && TEACHER_LIST.length ? TEACHER_LIST : TEACHERS;
 }
 
 /* ---------- Toasts ---------- */
@@ -504,15 +511,20 @@ function initAskDoubtForm() {
   const teacherEl = form.querySelector('#teacher');
   const descEl = form.querySelector('#description');
   const headEl = document.querySelector('#ask-heading');
-  // Populate teachers from the directory (values are account emails).
-  if (teacherEl && teacherEl.options.length <= 1) {
-    TEACHERS.forEach((t) => {
+  // Populate teachers: hardcoded directory instantly, live roster when the server answers.
+  const fillTeachers = (list) => {
+    const cur = teacherEl.value;
+    teacherEl.innerHTML = '<option value="">Select a teacher</option>';
+    list.forEach((t) => {
       const o = document.createElement('option');
       o.value = t.email;
-      o.textContent = `${t.name}`;
+      o.textContent = t.name;
       teacherEl.appendChild(o);
     });
-  }
+    teacherEl.value = cur || (editId && (getDoubts().find((x) => String(x.id) === String(editId)) || {}).teacher) || '';
+  };
+  fillTeachers(TEACHERS);
+  loadTeachers().then(fillTeachers);
   if (editId) {
     const d = getDoubts().find((x) => String(x.id) === String(editId));
     if (d) {
