@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initAskDoubtForm();
   initStudentDashboard();
   initDoubtDetails();
+  initTeacherProfiles();
   initImageUpload();
   initLoginForm();
   initSignupForm();
@@ -255,17 +256,19 @@ function initSignupForm() {
       error.textContent = 'Password must be at least 6 characters.';
       return;
     }
+    const subjects = form.elements.subjects ? form.elements.subjects.value.split(',').map((s) => s.trim()).filter(Boolean) : [];
+    const bio = form.elements.bio ? form.elements.bio.value.trim() : '';
     const users = getUsers();
     if (users[email]) {
       error.textContent = 'An account with this email already exists. Log in instead.';
       return;
     }
-    const srv = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, password, role: roleInput.value }) });
+    const srv = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, password, role: roleInput.value, bio, subjects }) });
     if (srv && srv.__error === 409) {
       error.textContent = 'An account with this email already exists. Log in instead.';
       return;
     }
-    users[email] = { password, role: roleInput.value, name, created: new Date().toISOString() };
+    users[email] = { password, role: roleInput.value, name, bio, subjects, created: new Date().toISOString() };
     saveUsers(users);
     error.textContent = '';
     submitButton.disabled = true;
@@ -524,7 +527,24 @@ function initAskDoubtForm() {
     teacherEl.value = cur || (editId && (getDoubts().find((x) => String(x.id) === String(editId)) || {}).teacher) || '';
   };
   fillTeachers(TEACHERS);
-  loadTeachers().then(fillTeachers);
+  loadTeachers().then((list) => {
+    fillTeachers(list);
+    // New teachers bring new subjects: merge them into the subject dropdown.
+    const extra = [...new Set(list.flatMap((t) => t.subjects || []))].filter(Boolean).sort();
+    if (extra.length) {
+      const cur = subjEl.value;
+      const have = new Set([...subjEl.options].map((o) => o.value));
+      extra.forEach((s) => {
+        if (!have.has(s)) {
+          const o = document.createElement('option');
+          o.value = s;
+          o.textContent = s;
+          subjEl.appendChild(o);
+        }
+      });
+      subjEl.value = cur;
+    }
+  });
   if (editId) {
     const d = getDoubts().find((x) => String(x.id) === String(editId));
     if (d) {
@@ -720,6 +740,35 @@ function initImageUpload() {
     };
     reader.readAsDataURL(file);
   });
+}
+
+/* ---------- Teacher roster page (live accounts, hardcoded fallback) ---------- */
+const FALLBACK_BIOS = {
+  'manishamatekar@gmail.com': { subjects: ['IKS in Computational Systems'], bio: 'Guides students through Indian knowledge systems and computational thinking.' },
+  'sunanditaswain@gmail.com': { subjects: ['Artificial Intelligence'], bio: 'Helps students understand Artificial Intelligence concepts and applications.' },
+  'sonalmehrotra@gmail.com': { subjects: ['Cyber and Security Information'], bio: 'Supports students with cybersecurity and information security concepts.' },
+  'sherlyroy@gmail.com': { subjects: ['Statistics'], bio: 'Helps students build a clear foundation in statistics and data interpretation.' },
+  'shradhhamadhavi@gmail.com': { subjects: ['Time Series and Analysis', 'Web Analytics and Optimization', 'Mini Project', 'CEP Project'], bio: 'Provides guidance for analytics, project work, and continuous evaluation projects.' },
+  'ashwini@gmail.com': { subjects: ['Ethical Hacking'], bio: 'Guides students in ethical hacking principles and responsible security practices.' },
+  'mansijain@gmail.com': { subjects: ['Software Testing and Quality Assurance'], bio: 'Supports students with software testing practices and quality assurance concepts.' },
+};
+async function initTeacherProfiles() {
+  const grid = document.querySelector('#teacher-grid');
+  if (!grid) return;
+  let list = TEACHERS.map((t) => ({ ...t, ...(FALLBACK_BIOS[t.email.toLowerCase()] || {}) }));
+  grid.innerHTML = list.map(teacherCard).join('');
+  const live = await loadTeachers();
+  if (live !== TEACHERS && live.length) {
+    const fb = (e) => FALLBACK_BIOS[String(e).toLowerCase()] || {};
+    list = live.map((t) => ({ ...t, subjects: t.subjects && t.subjects.length ? t.subjects : (fb(t.email).subjects || []), bio: t.bio || fb(t.email).bio || '' }));
+    grid.innerHTML = list.map(teacherCard).join('');
+  }
+}
+function teacherCard(t) {
+  const subs = (t.subjects || []).join(' · ') || 'General guidance';
+  return `<div class="card"><div class="card-body"><div class="teacher-avatar">${esc(initialsOf(t.name))}</div>`
+    + `<div class="card-title">${esc(t.name)}</div><p class="mono text-faint mt-8">${esc(subs)}</p>`
+    + (t.bio ? `<p class="text-soft mt-16">${esc(t.bio)}</p>` : '') + `</div></div>`;
 }
 
 /* ---------- Doubt details page (student view + follow-ups) ---------- */

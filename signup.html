@@ -53,6 +53,14 @@
           <button type="button" data-password-toggle aria-label="Show password" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); border:0; background:transparent; cursor:pointer; color:var(--ink-faint); padding:6px; display:flex;"></button>
         </div>
       </div>
+      <div class="field">
+        <label for="signup-subjects">Subjects you teach <span class="text-faint" style="font-weight:400;">(teachers, comma separated)</span></label>
+        <input type="text" id="signup-subjects" name="subjects" placeholder="e.g. Physics, Optics" />
+      </div>
+      <div class="field">
+        <label for="signup-bio">About you <span class="text-faint" style="font-weight:400;">(teachers, shown on your profile)</span></label>
+        <textarea id="signup-bio" name="bio" placeholder="What do you help students with?" style="min-height:80px;"></textarea>
+      </div>
       <p id="signup-error" class="form-error" role="alert" aria-live="polite"></p>
       <button type="submit" class="btn btn-primary btn-block">Create account <span aria-hidden="true">→</span></button>
     </form>

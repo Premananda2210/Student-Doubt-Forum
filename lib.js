@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT PRIMARY KEY, pass TEXT NOT NULL, role TEXT NOT NULL, created TIMESTAMPTZ DEFAULT now());
 ALTER TABLE users ADD COLUMN IF NOT EXISTS id SERIAL UNIQUE;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS name TEXT DEFAULT '';
+ALTER TABLE users ADD COLUMN IF NOT EXISTS bio TEXT DEFAULT '';
+ALTER TABLE users ADD COLUMN IF NOT EXISTS subjects TEXT[] DEFAULT '{}';
 CREATE TABLE IF NOT EXISTS doubts (
   id SERIAL PRIMARY KEY, dkey TEXT UNIQUE NOT NULL, email TEXT NOT NULL,
   title TEXT NOT NULL, subject TEXT, teacher TEXT, descr TEXT, tags TEXT[] DEFAULT '{}',
@@ -85,12 +87,13 @@ async function route(req, res) {
   const q = Object.fromEntries(u.searchParams);
   // Auth
   if (req.method === 'POST' && u.pathname === '/api/auth/signup') {
-    const { name, email, password, role } = await body(req);
+    const { name, email, password, role, bio, subjects } = await body(req);
     if (!email || !password) return json(res, 400, { error: 'missing' }), true;
     const r = await pool.query('SELECT 1 FROM users WHERE email=$1', [email]);
     if (r.rows.length) return json(res, 409, { error: 'exists' }), true;
-    await pool.query('INSERT INTO users (email, pass, role, name) VALUES ($1,$2,$3,$4)',
-      [email, hash(password), role || 'student', name || '']);
+    const subj = Array.isArray(subjects) ? subjects : String(subjects || '').split(',').map((s) => s.trim()).filter(Boolean);
+    await pool.query('INSERT INTO users (email, pass, role, name, bio, subjects) VALUES ($1,$2,$3,$4,$5,$6)',
+      [email, hash(password), role || 'student', name || '', bio || '', subj]);
     const rid = await pool.query('SELECT id FROM users WHERE email=$1', [email]);
     return json(res, 200, { ok: true, id: rid.rows[0].id }), true;
   }
@@ -113,8 +116,8 @@ async function route(req, res) {
     return json(res, 200, { ok: true }), true;
   }
   if (req.method === 'GET' && u.pathname === '/api/teachers') {
-    const r = await pool.query("SELECT name, email FROM users WHERE role='teacher' ORDER BY name");
-    return json(res, 200, r.rows.map((x) => ({ name: x.name || x.email.split('@')[0], email: x.email }))), true;
+    const r = await pool.query("SELECT name, email, bio, subjects FROM users WHERE role='teacher' ORDER BY name");
+    return json(res, 200, r.rows.map((x) => ({ name: x.name || x.email.split('@')[0], email: x.email, bio: x.bio || '', subjects: x.subjects || [] }))), true;
   }
   if (req.method === 'GET' && u.pathname === '/api/me') {    const r = await pool.query('SELECT id, email, name, role FROM users WHERE email=$1', [q.email || '']);
     if (!r.rows.length) return json(res, 404, { error: 'no account' }), true;
