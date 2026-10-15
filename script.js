@@ -121,7 +121,13 @@ function initLoginForm() {
     if (srv && srv.ok) {
       if (users[em]) { users[em].password = np; saveUsers(users); }
     } else {
-      // Offline/static, or unknown on server: local account required.
+      if (srv && srv.__error === 404) {
+        // Deleted on server: drop the stale local mirror too.
+        if (users[em]) { delete users[em]; saveUsers(users); }
+        ferr.textContent = 'No account found for that email. Sign up to create it.';
+        return;
+      }
+      // Offline/static: local account required.
       if (!em || !users[em]) { ferr.textContent = 'No account found for that email. Log in once to create it.'; return; }
       users[em].password = np;
       saveUsers(users);
@@ -269,17 +275,24 @@ function initSignupForm() {
     const subjects = form.elements.subjects ? form.elements.subjects.value.split(',').map((s) => s.trim()).filter(Boolean) : [];
     const bio = form.elements.bio ? form.elements.bio.value.trim() : '';
     const users = getUsers();
-    if (users[email]) {
-      error.textContent = 'An account with this email already exists. Log in instead.';
-      return;
-    }
     const srv = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, password, role: roleInput.value, bio, subjects }) });
     if (srv && srv.__error === 409) {
       error.textContent = 'An account with this email already exists. Log in instead.';
       return;
     }
-    users[email] = { password, role: roleInput.value, name, bio, subjects, created: new Date().toISOString() };
-    saveUsers(users);
+    if (srv && srv.ok) {
+      // Server is source of truth: (re)create the local mirror even if one existed.
+      users[email] = { password, role: roleInput.value, name, bio, subjects, created: new Date().toISOString() };
+      saveUsers(users);
+    } else {
+      // Offline/static: local mirror decides.
+      if (users[email]) {
+        error.textContent = 'An account with this email already exists. Log in instead.';
+        return;
+      }
+      users[email] = { password, role: roleInput.value, name, bio, subjects, created: new Date().toISOString() };
+      saveUsers(users);
+    }
     error.textContent = '';
     submitButton.disabled = true;
     submitButton.innerHTML = '<span class="loader"></span> Creating…';
